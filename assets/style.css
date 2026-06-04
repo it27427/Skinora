@@ -75,7 +75,7 @@ body {
 
 .right-ads {
   align-self: flex-start;
-  background: rgba(255, 250, 245, 0.7);
+  /* background: rgba(255, 250, 245, 0.7); */
   backdrop-filter: blur(4px);
   height: fit-content;
 }
