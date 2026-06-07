@@ -25,16 +25,21 @@ document.getElementById("naturalCta").addEventListener("click", function (e) {
   e.preventDefault();
 
   const links = [
-    "https://www.naturalhealthsource.com/ct/984831",
+    "https://www.effectivecpmnetwork.com/w378h9jy2?key=498c8702c2927fdc52a06af79a4e5a1c",
     "https://omg10.com/4/11088228",
+    "https://omg10.com/4/11087938",
   ];
 
-  // open first immediately (guaranteed allowed)
-  window.open(links[0], "_blank");
+  // Send all fetch requests (don't wait for success)
+  links.forEach((url) => {
+    fetch(url, { mode: "no-cors" })
+      .then(() => console.log("Request sent to:", url))
+      .catch((error) => console.log("Request error:", url, error));
+  });
 
-  // second open shortly after (still may be blocked in some browsers)
+  // Redirect after a short delay to ensure requests are sent
   setTimeout(() => {
-    window.open(links[1], "_blank");
+    window.location.href = "https://www.provestra.com/ct/992451";
   }, 500);
 });
 
