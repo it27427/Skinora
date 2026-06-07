@@ -1,18 +1,24 @@
-* {
+/* ============================================================
+   SKINORA — style.css  |  Full Responsive Update
+   ============================================================ */
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ── Global overflow fix (tablet + mobile) ── */
+html,
 body {
-  font-family: "Inter", sans-serif;
-  background: #fff9f7;
-  color: #3a2c2b;
-  line-height: 1.5;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
 }
 
-/* feminine pastel palette */
+/* ── Root variables ── */
 :root {
   --rose-dust: #f9e6e3;
   --blush-pink: #f5c6c0;
@@ -22,28 +28,41 @@ body {
   --golden-sand: #e9cfb2;
   --cream-white: #fffaf8;
   --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+  --body-bg: linear-gradient(145deg, #fff6f2 0%, #fff0ec 100%);
+  --primary-text: #3a2c2b;
+  --nav-border: #f2d9d2;
+  --navbar-bg: rgba(255, 245, 240, 0.9);
 }
 
-/* smooth scroll behavior */
+/* ── Smooth scroll ── */
 html {
   scroll-behavior: smooth;
 }
 
+/* ── Body ── */
 body {
-  background: linear-gradient(145deg, #fff6f2 0%, #fff0ec 100%);
+  font-family: "Inter", sans-serif;
+  background: var(--body-bg);
+  color: var(--primary-text);
+  line-height: 1.5;
 }
 
+/* ── Images ── */
 img {
   width: auto;
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
+/* ============================================================
+   NAVBAR
+   ============================================================ */
 .navbar {
-  background: rgba(255, 245, 240, 0.9);
+  background: var(--navbar-bg);
   backdrop-filter: blur(6px);
   padding: 1rem 0;
-  border-bottom: 1px solid #f2d9d2;
+  border-bottom: 1px solid var(--nav-border);
   margin-bottom: 30px;
   position: sticky;
   top: 0;
@@ -60,13 +79,18 @@ img {
   font-weight: 700;
 }
 
+/* ============================================================
+   CONTAINER
+   ============================================================ */
 .container {
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 28px;
 }
 
-/* two-column layout */
+/* ============================================================
+   TWO-COLUMN LAYOUT
+   ============================================================ */
 .two-col-layout {
   display: flex;
   flex-wrap: wrap;
@@ -76,17 +100,37 @@ img {
 
 .left-products {
   flex: 1;
-  min-width: 0;
+  min-width: 0; /* prevent overflow */
 }
 
 .right-ads {
   align-self: flex-start;
-  /* background: rgba(255, 250, 245, 0.7); */
   backdrop-filter: blur(4px);
   height: fit-content;
+  max-width: 100%;
+  overflow: hidden;
 }
 
-/* product cards */
+/* ============================================================
+   AD IFRAME / BANNER — global overflow guard
+   ============================================================ */
+.flex-center iframe,
+.flex-center > div,
+.flex-center > ins,
+.flex-center > script + div {
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* Prevent any injected ad container from blowing out layout */
+[id^="container-"] {
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* ============================================================
+   PRODUCT CARDS
+   ============================================================ */
 .product-card {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(2px);
@@ -97,12 +141,16 @@ img {
     0 1px 3px rgba(0, 0, 0, 0.02);
   transition: all 0.3s ease;
   border: 1px solid #ffe7e2;
+  overflow: hidden; /* prevent inner content overflow */
 }
 
 .product-card:hover {
   box-shadow: 0 30px 45px -15px rgba(164, 82, 72, 0.12);
 }
 
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
 h1,
 h2,
 h3,
@@ -110,6 +158,7 @@ h3,
   font-family: "Playfair Display", serif;
   font-weight: 500;
 }
+
 h1 {
   font-size: 3.4rem;
   letter-spacing: -0.01em;
@@ -118,6 +167,7 @@ h1 {
   background-clip: text;
   color: transparent;
 }
+
 h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -125,30 +175,41 @@ h2 {
   border-left: 5px solid #f0bcb2;
   padding-left: 1rem;
 }
+
 h3 {
   font-size: 1.6rem;
   margin: 1.5rem 0 0.8rem;
   color: #7a4d45;
 }
 
+/* ============================================================
+   LINKS & ANCHORS
+   ============================================================ */
 a {
   display: flex;
 }
 
+/* ============================================================
+   PRODUCT TITLE
+   ============================================================ */
 .product-title {
   font-size: 2rem;
   font-weight: 700;
   color: #9b5b50;
   margin-bottom: 0.5rem;
+  word-break: break-word;
 }
 
-/* image gallery grid */
+/* ============================================================
+   IMAGE GALLERY
+   ============================================================ */
 .img-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 18px;
   margin: 25px 0;
 }
+
 .img-gallery img {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -159,15 +220,20 @@ a {
   border: 2px solid white;
   cursor: pointer;
 }
+
 .img-gallery img:hover {
   transform: scale(1.03) translateY(-6px);
   box-shadow: 0 20px 28px -12px rgba(164, 82, 72, 0.3);
   border-color: #f0bcb2;
 }
 
-/* CTA buttons */
+/* ============================================================
+   CTA BUTTONS
+   ============================================================ */
 .btn-cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: #fff0ea;
   border: 1.5px solid #dbb6ae;
   color: #a45248;
@@ -181,7 +247,11 @@ a {
   letter-spacing: 0.3px;
   backdrop-filter: blur(4px);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  text-align: center;
+  word-break: break-word;
+  white-space: normal;
 }
+
 .btn-cta:hover {
   background: #a45248;
   border-color: #a45248;
@@ -190,7 +260,9 @@ a {
   box-shadow: 0 12px 18px -10px rgba(164, 82, 72, 0.4);
 }
 
-/* ad banner placeholder */
+/* ============================================================
+   AD BANNER PLACEHOLDER
+   ============================================================ */
 .ad-banner {
   background: #fff2ed;
   border-radius: 32px;
@@ -202,30 +274,40 @@ a {
   color: #a06b62;
   font-weight: 500;
   transition: 0.2s;
+  overflow: hidden;
 }
+
 .ad-banner-inner {
   background: #fbeae6;
   border-radius: 24px;
   padding: 20px 10px;
 }
 
-/* FAQ & global sections */
+/* ============================================================
+   GLOBAL SECTIONS & FAQ
+   ============================================================ */
 .global-section {
   background: rgba(255, 245, 240, 0.8);
   border-radius: 48px;
   padding: 2rem 2rem;
   margin: 3rem 0;
 }
+
 .faq-item {
   margin-bottom: 1.5rem;
   border-bottom: 1px solid #f2d9d2;
   padding-bottom: 1rem;
 }
+
 .faq-question {
   font-weight: 700;
   font-size: 1.2rem;
   color: #a45248;
 }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
 footer {
   text-align: center;
   padding: 2.5rem 0 2rem;
@@ -234,6 +316,10 @@ footer {
   font-size: 0.85rem;
   color: #8f6b63;
 }
+
+/* ============================================================
+   PARALLAX & FLOATING SHAPES
+   ============================================================ */
 .parallax-bg {
   position: fixed;
   top: 0;
@@ -248,6 +334,7 @@ footer {
     rgba(255, 245, 240, 0) 70%
   );
 }
+
 .floating-shape {
   position: fixed;
   width: 260px;
@@ -260,43 +347,14 @@ footer {
   pointer-events: none;
 }
 
-@media (max-width: 992px) {
-  .two-col-layout {
-    flex-direction: column;
-  }
-  .right-ads {
-    position: static;
-    margin-top: 20px;
-  }
-  h1 {
-    font-size: 2.5rem;
-  }
-  .container {
-    padding: 0 20px;
-  }
-}
-.tips-list {
-  background: #fff8f5;
-  padding: 1.2rem 1.8rem;
-  border-radius: 28px;
-  list-style-type: none;
-}
-.tips-list li {
-  margin: 0.7rem 0;
-  padding-left: 1.5rem;
-  position: relative;
-}
-.tips-list li:before {
-  content: "✨";
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
 .flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap; /* allow wrapping on small screens */
 }
 
 .flex-center-col {
@@ -309,25 +367,26 @@ footer {
 .mt-3 {
   margin-top: 1.25rem;
 }
-
 .mb-3 {
   margin-bottom: 1.25rem;
 }
-
 .mb-4 {
   margin-bottom: 1.5rem;
 }
-
 .py-3 {
   padding-block: 1.25rem;
 }
 
+/* ============================================================
+   PRODUCT THUMBNAIL
+   ============================================================ */
 .product-thumbnail-link {
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   margin-bottom: 1.5rem;
+  max-width: 100%;
 }
 
 .product-image {
@@ -342,7 +401,32 @@ footer {
   transition: transform 0.3s ease;
 }
 
-/* Back to Top Button */
+/* ============================================================
+   TIPS LIST
+   ============================================================ */
+.tips-list {
+  background: #fff8f5;
+  padding: 1.2rem 1.8rem;
+  border-radius: 28px;
+  list-style-type: none;
+}
+
+.tips-list li {
+  margin: 0.7rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.tips-list li:before {
+  content: "✨";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* ============================================================
+   BACK TO TOP BUTTON
+   ============================================================ */
 #backToTop {
   position: fixed;
   bottom: 30px;
@@ -375,7 +459,9 @@ footer {
   transform: translateY(-3px);
 }
 
-/* Overlay */
+/* ============================================================
+   MODAL
+   ============================================================ */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -394,7 +480,6 @@ footer {
   visibility: visible;
 }
 
-/* Modal Box */
 .modal {
   width: 90%;
   max-width: 420px;
@@ -452,7 +537,6 @@ footer {
   transform: scale(1.05);
 }
 
-/* Close Button */
 .close-btn {
   position: absolute;
   top: 10px;
@@ -467,4 +551,196 @@ footer {
   font-size: 18px;
   line-height: 32px;
   text-align: center;
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET  (≤ 992px)
+   ============================================================ */
+@media (max-width: 992px) {
+  .two-col-layout {
+    flex-direction: column;
+  }
+
+  .right-ads {
+    position: static;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  .product-title {
+    font-size: 1.5rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .global-section {
+    border-radius: 32px;
+    padding: 1.6rem;
+  }
+
+  .product-card {
+    padding: 1.5rem 1.2rem 2rem;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE  (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 14px;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    padding-left: 0.75rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.1rem 0 0.6rem;
+  }
+
+  .product-title {
+    font-size: 1.25rem;
+  }
+
+  .navbar-brand {
+    font-size: 1.3rem;
+  }
+
+  .btn-cta {
+    font-size: 0.88rem;
+    padding: 10px 18px;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .global-section {
+    border-radius: 20px;
+    padding: 1.2rem 1rem;
+    margin: 2rem 0;
+  }
+
+  .product-card {
+    padding: 1rem 0.9rem 1.4rem;
+    border-radius: 6px;
+  }
+
+  .tips-list {
+    padding: 1rem 1rem 1rem 1.2rem;
+    border-radius: 18px;
+  }
+
+  .faq-question {
+    font-size: 1rem;
+  }
+
+  #backToTop {
+    bottom: 20px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    font-size: 17px;
+  }
+
+  /* Scale down floating shapes so they don't cause horizontal scroll */
+  .floating-shape {
+    width: 160px;
+    height: 160px;
+  }
+
+  .img-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 12px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — SMALL MOBILE  (≤ 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 1.55rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+  }
+
+  .product-title {
+    font-size: 1.1rem;
+  }
+
+  .navbar {
+    padding: 0.75rem 0;
+    margin-bottom: 18px;
+  }
+
+  .navbar-brand {
+    font-size: 1.15rem;
+  }
+
+  .hero-section {
+    padding: 28px 0 14px !important;
+  }
+
+  .hero-section p {
+    font-size: 1rem !important;
+  }
+
+  .btn-cta {
+    font-size: 0.82rem;
+    padding: 9px 14px;
+    border-radius: 40px;
+  }
+
+  .global-section {
+    border-radius: 14px;
+    padding: 1rem 0.85rem;
+    margin: 1.5rem 0;
+  }
+
+  .product-card {
+    padding: 0.85rem 0.75rem 1.1rem;
+  }
+
+  .floating-shape {
+    display: none; /* hide decorative blobs on very small screens */
+  }
+
+  .img-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
+  }
 }
